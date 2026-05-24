@@ -5,29 +5,24 @@ node_modules/
 # Build artifacts
 dist/
 build/
-*.js
-*.ts
+*.js.map
+*.ts.map
 
 # Environment
 .env
 .env.local
 .env.*
 
-# Cache
-.cache/
-.node_modules/
-.npm/
-
-# Logs
-*.log
-
-# IDE
+# Editors
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# OS
-.DS_Store
-Thumbs.db
+# Logs
+*.log
+
+# Coverage
+coverage/
+.nyc_output/
 ```
