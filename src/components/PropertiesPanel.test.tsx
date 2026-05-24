@@ -77,10 +77,11 @@ describe('PropertiesPanel', () => {
       </WorkspaceProvider>
     );
 
-    expect(screen.getByLabelText('Top')).toBeInTheDocument();
-    expect(screen.getByLabelText('Right')).toBeInTheDocument();
-    expect(screen.getByLabelText('Bottom')).toBeInTheDocument();
-    expect(screen.getByLabelText('Left')).toBeInTheDocument();
+    expect(screen.getByText('Padding (px)')).toBeInTheDocument();
+    expect(screen.getAllByLabelText('Top')[0]).toBeInTheDocument();
+    expect(screen.getAllByLabelText('Right')[0]).toBeInTheDocument();
+    expect(screen.getAllByLabelText('Bottom')[0]).toBeInTheDocument();
+    expect(screen.getAllByLabelText('Left')[0]).toBeInTheDocument();
   });
 
   it('shows margin input fields', () => {

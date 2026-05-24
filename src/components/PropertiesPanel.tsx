@@ -150,10 +150,12 @@ const InputField: React.FC<{
   type?: string;
   min?: string;
   step?: string;
-}> = ({ label, value, onChange, type = 'text', min, step }) => (
+  id?: string;
+}> = ({ label, value, onChange, type = 'text', min, step, id }) => (
   <div className="mb-3">
-    <label className="block text-xs text-slate-400 mb-1">{label}</label>
+    <label htmlFor={id} className="block text-xs text-slate-400 mb-1">{label}</label>
     <input
+      id={id}
       type={type}
       value={value}
       min={min}
@@ -172,10 +174,12 @@ const SelectField: React.FC<{
   value: string;
   onChange: (value: string) => void;
   options: { value: string; label: string }[];
-}> = ({ label, value, onChange, options }) => (
+  id?: string;
+}> = ({ label, value, onChange, options, id }) => (
   <div className="mb-3">
-    <label className="block text-xs text-slate-400 mb-1">{label}</label>
+    <label htmlFor={id} className="block text-xs text-slate-400 mb-1">{label}</label>
     <select
+      id={id}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       className="w-full bg-slate-700 border border-slate-600 rounded px-2 py-1 text-sm text-slate-100 focus:outline-none focus:border-blue-500"
@@ -263,6 +267,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
         {/* Layout Options */}
         <SectionHeader title="Layout Options" />
         <SelectField
+          id="display-type"
           label="Display Type"
           value={formState.display}
           onChange={(v) => handleFieldChange('display', v)}
@@ -276,6 +281,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
         {formState.display === 'flex' && (
           <>
             <SelectField
+              id="flex-direction"
               label="Flex Direction"
               value={formState.flexDirection}
               onChange={(v) => handleFieldChange('flexDirection', v)}
@@ -287,6 +293,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
               ]}
             />
             <SelectField
+              id="align-items"
               label="Align Items"
               value={formState.alignItems}
               onChange={(v) => handleFieldChange('alignItems', v)}
@@ -299,6 +306,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
               ]}
             />
             <SelectField
+              id="justify-content"
               label="Justify Content"
               value={formState.justifyContent}
               onChange={(v) => handleFieldChange('justifyContent', v)}
@@ -318,6 +326,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
         <SectionHeader title="Padding (px)" />
         <div className="grid grid-cols-2 gap-2 mb-3">
           <InputField
+            id="padding-top"
             label="Top"
             value={formState.paddingTop}
             onChange={(v) => handleFieldChange('paddingTop', v)}
@@ -325,6 +334,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
             min="0"
           />
           <InputField
+            id="padding-right"
             label="Right"
             value={formState.paddingRight}
             onChange={(v) => handleFieldChange('paddingRight', v)}
@@ -332,6 +342,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
             min="0"
           />
           <InputField
+            id="padding-bottom"
             label="Bottom"
             value={formState.paddingBottom}
             onChange={(v) => handleFieldChange('paddingBottom', v)}
@@ -339,6 +350,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
             min="0"
           />
           <InputField
+            id="padding-left"
             label="Left"
             value={formState.paddingLeft}
             onChange={(v) => handleFieldChange('paddingLeft', v)}
@@ -351,6 +363,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
         <SectionHeader title="Margin (px)" />
         <div className="grid grid-cols-2 gap-2 mb-3">
           <InputField
+            id="margin-top"
             label="Top"
             value={formState.marginTop}
             onChange={(v) => handleFieldChange('marginTop', v)}
@@ -358,6 +371,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
             min="0"
           />
           <InputField
+            id="margin-right"
             label="Right"
             value={formState.marginRight}
             onChange={(v) => handleFieldChange('marginRight', v)}
@@ -365,6 +379,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
             min="0"
           />
           <InputField
+            id="margin-bottom"
             label="Bottom"
             value={formState.marginBottom}
             onChange={(v) => handleFieldChange('marginBottom', v)}
@@ -372,6 +387,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
             min="0"
           />
           <InputField
+            id="margin-left"
             label="Left"
             value={formState.marginLeft}
             onChange={(v) => handleFieldChange('marginLeft', v)}
@@ -383,6 +399,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
         {/* Typography */}
         <SectionHeader title="Typography" />
         <InputField
+          id="font-size"
           label="Font Size (px)"
           value={formState.fontSize}
           onChange={(v) => handleFieldChange('fontSize', v)}
@@ -391,6 +408,7 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
           step="1"
         />
         <SelectField
+          id="font-weight"
           label="Font Weight"
           value={formState.fontWeight}
           onChange={(v) => handleFieldChange('fontWeight', v)}
@@ -409,15 +427,17 @@ export const PropertiesPanel: React.FC<PropertiesPanelProps> = ({ className = ''
           ]}
         />
         <div className="mb-3">
-          <label className="block text-xs text-slate-400 mb-1">Text Color</label>
+          <label htmlFor="text-color" className="block text-xs text-slate-400 mb-1">Text Color</label>
           <div className="flex items-center gap-2">
             <input
+              id="text-color-picker"
               type="color"
               value={formState.textColor}
               onChange={(e) => handleFieldChange('textColor', e.target.value)}
               className="w-8 h-8 rounded border border-slate-600 cursor-pointer"
             />
             <input
+              id="text-color"
               type="text"
               value={formState.textColor}
               onChange={(e) => handleFieldChange('textColor', e.target.value)}
